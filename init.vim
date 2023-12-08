@@ -2,11 +2,20 @@ set number
 set encoding=UTF-8
 set tabstop=2
 set shiftwidth=2
+set relativenumber
 set autoindent
 set smarttab
+set hidden
 
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
+let NERDTreeShowHidden=1
+
+let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-A>'
+
 
 call plug#begin()
   Plug 'preservim/nerdtree' |
@@ -23,6 +32,8 @@ call plug#begin()
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'PhilRunninger/nerdtree-visual-selection'
+	Plug 'terryma/vim-multiple-cursors'
   let g:coc_global_extensions = [
     \ 'coc-tsserver'
     \ ]
@@ -45,7 +56,9 @@ nnoremap <c-r> <c-r>
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <c-f> :Rg<CR>
 inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<TAB>"
+inoremap <silent><expr> <cr> "\<c-g>u\<CR>"
 
-nmap <A-Up> :m +1<CR>
-nmap <A-Down> :m -2<CR>
+nmap <A-Up> :m -2<CR>
+nmap <A-Down> :m +1<CR>
 
